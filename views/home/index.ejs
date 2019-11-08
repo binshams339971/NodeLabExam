@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>All Medicine</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<style>
+		.header1{
+			text-align: center;
+		}
+		.mypost{
+			width: 90%;
+			padding-left: 220px;
+			float: left;
+		}
+		#abc{
+			display: inline-block;
+			padding: 9px 12px;
+			padding-top: 7px;
+			margin-bottom: 0;
+			font-size: 14px;
+			line-height: 20px;
+			color: #5e5e5e;
+			text-align: center;
+			vertical-align: middle;
+			cursor: pointer;
+			background-color: #d1dade;
+			-webkit-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			-webkit-border-radius: 3px;
+			background-image: none !important;
+			border: none;
+			text-shadow: none;
+			box-shadow: none;
+			transition: all 0.12s linear 0s !important;
+			font: 14px/20px "Helvetica Neue",Helvetica,Arial,sans-serif;
+		}
+		
+	</style>
+
+</head>
+<body>
+	<p style="text-align: center; padding-top: 0px; font-size: 30px;"><strong>All Medicine</strong></p>
+	<div class="header1">
+	<a href="/user">My Profile</a><br><br>
+	<form method="post">
+	<input type="text" name="search" placeholder="search here">
+	<input type="submit" name="submit" value="Search">
+	</form>
+	</div>
+	<br>
+	<div class="mypost">
+		<table border="1" class="table table-striped">
+		<tr>
+			<td><strong>ID</strong></td>
+			<td><strong>Name</strong></td>
+			<td><strong>Price</strong></td>
+			<td><strong>Count</strong></td>
+			<td><strong>Genre</strong></td>
+			<td><strong>Type</strong></td>
+			<td><strong>Action</strong></td>
+		</tr>
+
+	<% for(var i=0; i< medi.length; i++){ %>
+		<tr>
+			<td><%= medi[i].id %></td>
+			<td><%= medi[i].name %></td>
+			<td><%= medi[i].price %></td>
+			<td><%= medi[i].count %></td>
+			<td><%= medi[i].genre %></td>
+            <td><%= medi[i].type %></td>
+            <td>
+				<a href="/home/buy/<%= medi[i].id %>">Buy</a>
+			</td>
+		</tr>
+
+	<% } %>
+	</table>
+	</div>
+</body>
+</html>
+	
