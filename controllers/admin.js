@@ -105,18 +105,18 @@ router.get('/deletemedi/:id', function(req, res){
 });
 router.get('/allorder',function(req, res){
 	userModel.getAllorder(function(results){
-		console.log(results);
 		res.render('admin/allorder',{order: results});
 	});
 });
 router.get('/acceptorder/:id',function(req, res){
-	userModel.getOrderById(req.params.id, function(result) {
+	var id = req.params.id;
+	userModel.getOrderById(id, function(result) {
 		if(result.length > 0 ) {
-			userModel.inertAccetorder(result, function(status){
+			userModel.inertAccetorder(result[0], function(status){
 				if(status){
 					userModel.deleteOrderById(req.params.id, function(status){
 						if(status){
-
+							res.redirect('/admin/allorder')
 						}else{
 							
 						}
@@ -132,16 +132,37 @@ router.get('/acceptorder/:id',function(req, res){
 	});
 });
 router.get('/rejectorder/:id',function(req, res){
-	userModel.insertRejectOrder(function(results){
-		console.log(results);
-		res.redirect('/allorder');
+	var id = req.params.id;
+	userModel.getOrderById(id, function(result) {
+		if(result.length > 0 ) {
+			userModel.insertRejectOrder(result[0], function(status){
+				if(status){
+					userModel.deleteOrderById(req.params.id, function(status){
+						if(status){
+							res.redirect('/admin/allorder')
+						}else{
+							
+						}
+					});
+				}else{
+
+				}
+			});
+		}else{
+			callback([]);
+		}
+		
 	});
 });
-router.get('/acceptorder',function(res, req){
-
+router.get('/acceptorder',function(req, res){
+	userModel.getAllAcceptOrder(function(results){
+		res.render('admin/acceptorder',{order: results});
+	});
 });
-router.get('/rejectorder',function(res, req){
-	
+router.get('/rejectorder',function(req, res){
+	userModel.getAllRejectOrder(function(results){
+		res.render('admin/rejectorder',{order: results});
+	});
 });
 module.exports = router;
 

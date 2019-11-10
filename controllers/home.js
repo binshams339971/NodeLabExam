@@ -11,6 +11,13 @@ router.get('/', function(req, res){
 
 router.post('/', function(req, res){
 	var s = req.body.search;
+	userModel.getSearch(s, function(results){
+		if(results.length > 0){
+			res.render('home/index', {medi: results});
+		}else{
+			res.send('Not Found');
+		}
+	});
 });
 
 router.get('/buy/:id', function(req, res){

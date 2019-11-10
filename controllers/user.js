@@ -2,14 +2,14 @@ var express = require('express');
 var userModel = require('./../models/user-model');
 var router = express.Router();
 
-/* router.get('*', function(req, res, next){
+router.get('*', function(req, res, next){
 
 	if(req.session.user_username != null){
 		next();
 	}else{
 		res.redirect('/login');
 	}
-}); */
+});
 router.get('/', function(req, res){
 		var username = req.session.user_username;
 		if(req.session.user_username != null){

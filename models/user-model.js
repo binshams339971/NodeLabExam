@@ -14,6 +14,16 @@ module.exports={
 			}
 		});
 	},
+	getSearch : function(key, callback){
+		var sql = "select * from medicine where name=? or genre=? or type=?";
+		db.getResults(sql, [key, key, key], function(result){
+			if(result.length > 0 ){
+				callback(result);
+			}else{
+				callback([]);
+			}
+		});
+	},
 	validateUser: function(user, callback){
 		var sql = "select * from user where username=? and password=?";
 
@@ -99,8 +109,28 @@ module.exports={
 		});
 	},
 	getOrderById : function(id, callback){
-		var sql = "select * from order where id=?";
+		var sql = "select * from mediorder where id=?";
 		db.getResults(sql, [id], function(results){
+			if(results.length > 0 ) {
+				callback(results);
+			}else{
+				callback([]);
+			}
+		});
+	},
+	getAllAcceptOrder : function(callback){
+		var sql = "select * from acceptmediorder";
+		db.getResults(sql, [], function(results){
+			if(results.length > 0 ) {
+				callback(results);
+			}else{
+				callback([]);
+			}
+		});
+	},
+	getAllRejectOrder : function(callback){
+		var sql = "select * from rejectmediorder";
+		db.getResults(sql, [], function(results){
 			if(results.length > 0 ) {
 				callback(results);
 			}else{
@@ -127,7 +157,13 @@ module.exports={
 		});
 	},
 	inertAccetorder : function(order, callback){
-		var sql = "insert into acceptmediorder values(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+		var sql = "insert into acceptmediorder values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		db.execute(sql, [order.id, order.mid, order.name, order.totalprice, order.genre, order.type, order.address, order.area, order.phonenumber, order.username], function(status){
+			callback(status);
+		});
+	},
+	insertRejectOrder : function(order, callback){
+		var sql = "insert into rejectmediorder values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		db.execute(sql, [order.id, order.mid, order.name, order.totalprice, order.genre, order.type, order.address, order.area, order.phonenumber, order.username], function(status){
 			callback(status);
 		});
